@@ -1,0 +1,75 @@
+{% extends 'todoapp/base.html' %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-5 justify-around offset-3">
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    {{field}} {{field.errors|striptags}}
+                {% endfor %}
+                <input class="form-control bg-primary text-white" type="submit" value="Add Task">     
+            </form>
+        </div>
+    </div>
+    {{date}}
+    <div class="row mt-4">
+        <div class="col-md-7">
+            <h1>Pending Tasks</h1>
+            {% for task in pending_task %}
+                <div class="card my-1">
+                    <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    {{task.task}}
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="row flex-col">
+                                        <div class="col-md-4 mx-auto">
+                                            <form action="{% url 'mark_done' task.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button class="btn btn-danger" type="submit">Done</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-4 mx-auto">
+                                            <a href="{% url 'update_task' task.id%}"><button class="btn btn-danger">Edit</button></a>
+                                        </div>
+                                        <div class="col-md-4 mx-auto">
+                                            <form action="{% url 'delete_task' task.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button class="btn btn-danger" type="submit">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-5">
+            <h1>Completed Tasks</h1>
+            {% for task in completed_task %}
+                <div class="card my-1">
+                    <div class="card-body row flex-col">
+                        <div class="col-md-9">
+                            <del>{{task.task}}</del>
+                        </div>
+                        <div class="col-md-3">
+                            <form action="{% url 'mark_undone' task.id %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-danger" type="submit">Undone</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+
