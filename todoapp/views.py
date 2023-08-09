@@ -45,7 +45,8 @@ def mark_undone(request,pk):
     
 def edit_task(request,pk):
     if request.method=='POST':
-        form=TaskForm(request.POST)
+        obj=Task.objects.get(pk=pk)
+        form=TaskForm(request.POST,instance=obj)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect("/")

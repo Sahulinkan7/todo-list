@@ -2,12 +2,12 @@
 
 {% block content %}
 
-    <form action="" method="post">
+    <form action="" method="post" novalidate>
         {% csrf_token %}
         {% for field in form %}
             {{field}} {{field.errors|striptags}}
         {% endfor %}
-        <input class="form-control" type="submit" value="Update Task">
+        <input class="form-control text-white bg-primary" type="submit" value="Update Task">
     </form>
 
 {% endblock content %}
