@@ -4,7 +4,7 @@ pipeline{
         stage("clone todo application code"){
             steps{
                 echo "cloning from github"
-                git:"https://github.com/Sahulinkan7/todo-list.git",branch:"main"
+                git url:"https://github.com/Sahulinkan7/todo-list.git",branch:"main"
             }
             post{
                 success{
