@@ -34,7 +34,22 @@ pipeline{
             }
             post{
                 success{
-                    echo "building image done"
+                    echo "Image pushed to dockerhub registry"
+                }
+            }
+        }
+        stage (" pull image from dockerhub and run ")
+        {
+            steps{
+                echo "running todo app container "
+                sh "docker run -d -p 8000:8000 sahulinkan7/todo-app:latest"
+            }
+            post{
+                success{
+                    echo "======== container running in 8000 port ========"
+                }
+                failure{
+                    echo "======== docker container is not running ========"
                 }
             }
         }
