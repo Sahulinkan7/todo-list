@@ -23,6 +23,21 @@ pipeline{
                 }
             }
         }
+        stage("push image to docker hub"){
+            steps{
+                echo "pushing the image to docker hub"
+                withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
+                    sh "docker tag todo-app ${env.dockerHubuser}/todo-app:latest"
+                    sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
+                    sh "docker push ${env.dockerHubuser}/todo-app:latest"
+                }
+            }
+            post{
+                success{
+                    echo "building image done"
+                }
+            }
+        }
     }
     post{
         success{
