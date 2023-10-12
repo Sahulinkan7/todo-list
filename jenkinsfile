@@ -44,7 +44,7 @@ pipeline{
                     label 'slave'
                 }
             steps{
-                echo "running todo app container "
+                echo "running todo app container in slave node"
                 sh "docker run -d -p 8000:8000 sahulinkan7/todo-app:latest"
             }
             post{
