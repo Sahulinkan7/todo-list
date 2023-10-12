@@ -1,27 +1,30 @@
 pipeline{
     agent any
     stages{
-        stage("A"){
+        stage("clone todo application code"){
             steps{
-                echo "=======executing A========"
+                echo "cloning from github"
+                git:"",branch:"main"
             }
             post{
-                always{
-                    echo "========always========"
-                }
                 success{
-                    echo "========A executed successfully========"
+                    echo "github clone done"
                 }
-                failure{
-                    echo "========A execution failed========"
+            }
+        }
+        stage("Building the code : building docker image"){
+            steps{
+                echo "building docker image for the application."
+                sh "docker build -t todo-app ."
+            }
+            post{
+                success{
+                    echo "building image done"
                 }
             }
         }
     }
     post{
-        always{
-            echo "========always========"
-        }
         success{
             echo "========pipeline executed successfully ========"
         }
