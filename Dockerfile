@@ -1,6 +1,6 @@
 FROM python:3.11.4-alpine
 
-WORKDIR todoapp/
+WORKDIR /todoapp
 
 COPY . .
 
