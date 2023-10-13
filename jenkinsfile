@@ -23,7 +23,7 @@ pipeline{
                 }
             }
         }
-        stage("push image to docker hub"){
+        stage("pushing image to docker hub"){
             steps{
                 echo "pushing the image to docker hub"
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
