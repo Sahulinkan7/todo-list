@@ -1,9 +1,8 @@
-version: '3.8'
+version: '3'
 
 services:
   web:
     build: .
-    container_name: todo_app
     ports:
       - "8000:8000"
     command: python manage.py runserver 0.0.0.0:8000
@@ -14,7 +13,6 @@ services:
 
   db:
     image: postgres
-    container_name: postgre_db
     restart: always
     networks:
       - todolist_net
