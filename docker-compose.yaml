@@ -9,8 +9,6 @@ services:
     command: ["sh","./start.sh"]
     volumes:
       - .:/todoapp
-    env_file:
-      - .env
     depends_on:
       - postgres_db
 
@@ -19,9 +17,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=${SQL_NAME}
-      - POSTGRES_USER=${SQL_USER}
-      - POSTGRES_PASSWORD=${SQL_PASSWORD}
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_USER=linkan
+      - POSTGRES_PASSWORD=password
 volumes:
   postgres_data:
 
