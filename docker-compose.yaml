@@ -1,30 +1,27 @@
-version: '3'
+version: '3.8'
 
 services:
   web:
-    build: .
+    build:
+      context: .
     ports:
       - "8000:8000"
-    command: python manage.py runserver 0.0.0.0:8000
-    networks:
-      - todolist_net
+    command: ["sh","./start.sh"]
+    env_file:
+      - .env
     depends_on:
-      - db
+      - postgres_db
 
-  db:
+  postgres_db:
     image: postgres
-    restart: always
-    networks:
-      - todolist_net
-    expose:
-      - '5432'
+    volumes:
+      - postgres_data: /var/lib/postgresql/data
     environment:
-      POSTGRES_DB : mydatabase
-      POSTGRES_USER : myuser
-      POSTGRES_PASSWORD: mypassword
-
-networks:
-  todolist_net:
+      - POSTGRES_DB = ${SQL_NAME}
+      - POSTGRES_USER = ${SQL_USER}
+      - POSTGRE_PASSWORD= $ {SQL_PASSWORD}
+volumes:
+  postgres_data:
 
 
 
