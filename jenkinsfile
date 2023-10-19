@@ -15,7 +15,7 @@ pipeline{
         stage("Building the code : building docker image"){
             steps{
                 echo "building docker image for the application."
-                sh "docker build -t todo-app ."
+                sh "docker-compose build"
             }
             post{
                 success{
@@ -27,9 +27,9 @@ pipeline{
             steps{
                 echo "pushing the image to docker hub"
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
-                    sh "docker tag todo-app ${env.dockerHubuser}/todo-app:latest"
+                    sh "docker tag sahulinkan7/todoapp:latest ${env.dockerHubuser}/todoapp:latest"
                     sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
-                    sh "docker push ${env.dockerHubuser}/todo-app:latest"
+                    sh "docker push ${env.dockerHubuser}/todoapp:latest"
                 }
             }
             post{
@@ -40,12 +40,9 @@ pipeline{
         }
         stage (" pull image from dockerhub and run ")
         {
-            agent {
-                    label 'slave'
-                }
             steps{
                 echo "running todo app container in slave node"
-                sh "docker run -d -p 8000:8000 sahulinkan7/todo-app:latest"
+                sh "docker-compose up -d"
             }
             post{
                 success{

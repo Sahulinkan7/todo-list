@@ -4,6 +4,7 @@ services:
   web:
     build:
       context: .
+      image: sahulinkan7/todoapp:latest
     ports:
       - "8000:8000"
     command: ["sh","./start.sh"]
