@@ -27,7 +27,7 @@ pipeline{
             steps{
                 echo "pushing the image to docker hub"
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubpass",usernameVariable:"dockerHubuser")]){
-                    sh "docker tag sahulinkan7/todoapp:latest ${env.dockerHubuser}/todoapp:latest"
+                    sh "docker tag todoapp-pipeline_web ${env.dockerHubuser}/todoapp:latest"
                     sh "docker login -u ${env.dockerHubuser} -p ${env.dockerHubpass}"
                     sh "docker push ${env.dockerHubuser}/todoapp:latest"
                 }
