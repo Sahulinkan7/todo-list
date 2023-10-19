@@ -38,7 +38,7 @@ pipeline{
                 }
             }
         }
-        stage (" pull image from dockerhub and run ")
+        stage (" pull image from dockerhub and run on slave node")
         {
             agent{
                 label 'slave'
