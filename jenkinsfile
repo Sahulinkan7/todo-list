@@ -44,7 +44,7 @@ pipeline{
                 label 'slave'
             }
             steps{
-                echo "running todo app container in slave node"
+                echo "running todo app container in aws slave node"
                 sh "docker-compose up -d"
             }
             post{
