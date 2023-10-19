@@ -34,7 +34,7 @@ pipeline{
             }
             post{
                 success{
-                    echo "Image pushed to dockerhub registry"
+                    echo "Image pushed to dockerhub registry."
                 }
             }
         }
