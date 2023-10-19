@@ -40,6 +40,9 @@ pipeline{
         }
         stage (" pull image from dockerhub and run ")
         {
+            agent{
+                label 'slave'
+            }
             steps{
                 echo "running todo app container in slave node"
                 sh "docker-compose up -d"
